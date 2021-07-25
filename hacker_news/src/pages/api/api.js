@@ -21,7 +21,6 @@ const Api = props => {
     const response = await axios.get(url);
     let popularMovie = response.data.results;
     setMovies(popularMovie)
-    
   };
 
   const addMovieListButton = selectedMovie => {
