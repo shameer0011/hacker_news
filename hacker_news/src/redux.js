@@ -1,58 +1,31 @@
-import uuid from "react-uuid";
 import { combineReducers, createStore } from "redux";
 // CREATE REDUCER
 //...............
 
-const filtersReducerDefaultValue = {
-  availableSizes: "",
-  price: "",
-};
-const filtersReducers = (state = filtersReducerDefaultValue, action) => {
+const PopularMovieReducersDefaultValue = [];
+
+const PopularMovieReducers = (
+  state = PopularMovieReducersDefaultValue,
+  action
+) => {
   switch (action.type) {
-    case "SET-PRICE-ORDER":
-      return { ...state, price: action.price };
-      break;
-    case "SET-SORT-BY-SIZE":
-      return { ...state, availableSizes: action.availableSizes };
+    case "ADD-POPULAR-MOVIES":
+      return [...state, { ...action.movies }];
       break;
     default:
       return state;
       break;
   }
 };
-const createOrderReducerDefaultValue = [];
+const loginReducerDefaultValue = [];
 
-const createOrderReducers = (
-  state = createOrderReducerDefaultValue,
-  action
-) => {
+const loginReducer = (state = loginReducerDefaultValue, action) => {
+  console.log(action.loginValues?.name);
+  console.log(action.loginValues?.password);
+  console.log(state)
   switch (action.type) {
-    case "ADD-ORDER":
-      return [...state, action.products];
-      break;
-    case "EDIT-ORDER":
-      return state.map(product => {
-        if (product.id === action.id) {
-          //1.one way
-          // expence.description = action.description,
-          //     expence.note = action.note
-          return {
-            //2.two way
-            ...product,
-            description: action.description,
-            title: action.title,
-            image: action.image,
-            price: action.price,
-            availableSizes: action.availableSizes,
-          };
-        } else {
-          return product;
-        }
-      });
-    case "REMOVE-ORDER":
-      if (action.id) {
-        return state.filter(item => item.id !== action.id);
-      }
+    case "ADD-LOGIN-VALUES":
+        return  [...state,{...action.loginValues }]
       break;
 
     default:
@@ -66,8 +39,9 @@ const createOrderReducers = (
 
 export const store = createStore(
   combineReducers({
-    prod: createOrderReducers,
-    filt: filtersReducers,
+    movie: PopularMovieReducers,
+    login: loginReducer,
+    // filt: filtersReducers,
   })
 );
 
@@ -80,56 +54,66 @@ store.subscribe(() => {
 // CALL ACTIONS
 //...............
 
-export const createOrder = products => {
+export const createPopularMovie = movie => {
+  const { id, original_title, overview, popularity, poster_path } = movie;
+
   return {
-    type: "ADD-ORDER",
-    products: {
-      id: uuid(),
-      title: products.title,
-      description: products.description,
-      image: products.image,
-      price: products.price,
-      availableSizes: products.size,
+    type: "ADD-POPULAR-MOVIES",
+    movies: {
+      id: id,
+      original_title: original_title,
+      overview: overview,
+      popularity: popularity,
+      poster_path: poster_path,
+    },
+  };
+};
+export const createLogin = values => {
+  return {
+    type: "ADD-LOGIN-VALUES",
+    loginValues: {
+      name: values.name,
+      password: values.password,
     },
   };
 };
 
-export const editOrder = (
-  id = "",
-  { description = "", title = "", image = "", price = "", size = "" } = {}
-) => {
-  return {
-    type: "EDIT-ORDER",
-    id: id,
-    description: description,
-    title: title,
-    image: image,
-    price: price,
-    availableSizes: size,
-  };
-};
-export const removeOrder = ({ id }) => {
-  return {
-    type: "REMOVE-ORDER",
-    id: id,
-  };
-};
+// export const editOrder = (
+//   id = "",
+//   { description = "", title = "", image = "", price = "", size = "" } = {}
+// ) => {
+//   return {
+//     type: "EDIT-ORDER",
+//     id: id,
+//     description: description,
+//     title: title,
+//     image: image,
+//     price: price,
+//     availableSizes: size,
+//   };
+// };
+// export const removeOrder = ({ id }) => {
+//   return {
+//     type: "REMOVE-ORDER",
+//     id: id,
+//   };
+// };
 
-const setPriceOrder = price => {
-  return {
-    type: "SET-PRICE-ORDER",
-    //describe code actions
-    price: price,
-  };
-};
+// const setPriceOrder = price => {
+//   return {
+//     type: "SET-PRICE-ORDER",
+//     //describe code actions
+//     price: price,
+//   };
+// };
 
-const setSortBySize = availableSizes => {
-  return {
-    type: "SET-SORT-BY-SIZE",
-    //describe code actions
-    availableSizes: availableSizes,
-  };
-};
+// const setSortBySize = availableSizes => {
+//   return {
+//     type: "SET-SORT-BY-SIZE",
+//     //describe code actions
+//     availableSizes: availableSizes,
+//   };
+// };
 
 // CALL ACTION FUNCTION
 //...............

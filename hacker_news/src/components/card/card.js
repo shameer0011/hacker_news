@@ -7,15 +7,14 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import BorderColorIcon from "@material-ui/icons/BorderColor";
 import HighlightOffTwoToneIcon from "@material-ui/icons/HighlightOffTwoTone";
 const Cards = props => {
   const {
     item,
     index,
-    cartLabel,
+    buttonLabel,
     onClick,
-    addToCardButton,
+    addMovieListButton,
     imageClickModal,
     editCardToProduct,
     removeCard,
@@ -32,19 +31,25 @@ const Cards = props => {
   const CardModal = item => {
     return (
       <CardMedia
-        className={classes.media}
-        image={item.image}
+        component="img"
+        alt="Contemplative Reptile"
+        height="140"
+        image={`https://image.tmdb.org/t/p/w185/${item?.poster_path}`}
         title="Contemplative Reptile"
       />
     );
   };
   const modalAddToCart = item => {
-    addToCardButton(item);
+    // addToCardButton(item);
   };
 
   return (
     <div>
-      <Card className={classes.root} onClick={cardClick}>
+      <Card
+        className={classes.root}
+        onClick={cardClick}
+        style={{ height: "90%", width: "300px" }}
+      >
         <Button onClick={() => removeCard(item)} style={{ float: "right" }}>
           <HighlightOffTwoToneIcon />
         </Button>
@@ -56,28 +61,32 @@ const Cards = props => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {item && item.title}
+              {item && item.original_title}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                height: "100px",
+              }}
+            >
+              {item && item.overview}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {item && item.description}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {item && item.size}
+              {item && item.popularity}
             </Typography>
           </CardContent>
           <div className={classes.buttonStyle}>
-            <Button variant="contained" className={classes.prizeStyles}>
-              {`${item && item.price} $`}
-            </Button>
             <Button
               variant="contained"
               color="primary"
-              onClick={() => addToCardButton(item)}
+              onClick={() => addMovieListButton(item)}
             >
-              {cartLabel}
-            </Button>
-            <Button onClick={() => editCard(item)}>
-              <BorderColorIcon />
+              {buttonLabel}
             </Button>
           </div>
         </CardActionArea>

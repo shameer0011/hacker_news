@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-const Form = ({ checkoutForm }) => {
+const Form = ({ onSubmit }) => {
   const [inputField, setInputField] = useState({
     name: "",
-    address: "",
-    email: "",
+    password: "",
   });
   const handleInputs = e => {
     setInputField({ ...inputField, [e.target.name]: e.target.value });
   };
-  const onSubmit = e => {
+  const onSubmitValues = e => {
     e.preventDefault();
     const order = {
-      Name: inputField.name,
-      Address: inputField.address,
-      Email: inputField.email,
+      name: inputField.name,
+      password: inputField.password,
     };
-    checkoutForm(order);
+    onSubmit(order);
   };
   return (
     <div style={{ content: "", display: "table", clear: "both" }}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitValues}>
         <div
           style={{
             display: "flex",
@@ -45,37 +43,17 @@ const Form = ({ checkoutForm }) => {
             alignItems: "center",
           }}
         >
-          <label>Address:</label>
+          <label>Password:</label>
           <input
             style={{ padding: "0.50rem", width: "15rem" }}
-            name="address"
-            type="text"
-            value={inputField.address}
+            name="password"
+            type="password"
+            value={inputField.password}
             onChange={handleInputs}
             required
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-          s
-        >
-          <label>Email:</label>
-          <input
-            style={{
-              padding: "0.50rem",
-              width: "15rem",
-            }}
-            name="email"
-            type="email"
-            value={inputField.email}
-            onChange={handleInputs}
-            required
-          />
-        </div>
+
         <div
           style={{
             display: "flex",
@@ -84,7 +62,7 @@ const Form = ({ checkoutForm }) => {
           }}
         >
           <Button color="primary" variant="outlined" type="submit">
-            Checkout
+            Submit
           </Button>
         </div>
       </form>
