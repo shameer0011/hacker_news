@@ -64,7 +64,7 @@ const SimpleModal = ({ media, modalBody, modalAddToCart }) => {
           >
             <div>
               {" "}
-              <img src={modalBody.image} alt={modalBody.title} />
+              <img src={modalBody?.image} alt={modalBody?.title} />
             </div>
           </div>
 
@@ -77,12 +77,12 @@ const SimpleModal = ({ media, modalBody, modalAddToCart }) => {
               marginLeft: "0.2rem",
             }}
           >
-            <div id="simple-modal-title">Name : {modalBody.title}</div>
+            <div id="simple-modal-title">Name : {modalBody?.title}</div>
             <div id="simple-modal-title">
-              Description : {modalBody.description}
+              Description : {modalBody?.description}
             </div>
 
-            <div id="simple-modal-title"> Price : $ {modalBody.price}</div>
+            <div id="simple-modal-title"> Price : $ {modalBody?.price}</div>
             <div>
               <Button
                 onClick={() => {

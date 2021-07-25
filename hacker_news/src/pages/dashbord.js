@@ -1,14 +1,11 @@
 import React from "react";
-import HeaderPage from "./headerPage";
-import MainPage from "./mainPage";
+import API from "./api/api";
 
 const Dashbord = () => {
   return (
     <div>
-      <HeaderPage />
-      <MainPage />
-
-      {/* <FooterPage /> */}
+      <API />
+      {/* <GetMovies /> */}
     </div>
   );
 };
