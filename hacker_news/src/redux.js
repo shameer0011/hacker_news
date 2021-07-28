@@ -2,8 +2,21 @@ import { combineReducers, createStore } from "redux";
 // CREATE REDUCER
 //...............
 
-const PopularMovieReducersDefaultValue = [];
-
+const users = [
+  {
+      "id":1,
+      "username":"user1",
+      "email":"user@hotmail.com",
+      "password":"1234"
+  },
+  {
+      "id":2,
+      "username":"user2",
+      "email":"user2@hotmail.com",
+      "password":"12345"
+  }
+  ];
+const PopularMovieReducersDefaultValue = []
 const PopularMovieReducers = (
   state = PopularMovieReducersDefaultValue,
   action
@@ -17,16 +30,27 @@ const PopularMovieReducers = (
       break;
   }
 };
-const loginReducerDefaultValue = [];
+const loginReducerDefaultValue =users;
 
 const loginReducer = (state = loginReducerDefaultValue, action) => {
-  console.log(action.loginValues?.name);
-  console.log(action.loginValues?.password);
-  console.log(state)
+console.log(state)
   switch (action.type) {
     case "ADD-LOGIN-VALUES":
-        return  [...state,{...action.loginValues }]
+      console.log(action.username)
+   return [...state.filter(user => user.username === action.username)];
+  // state.filter(user =>{
+  //       if(user.username===action.username) {
+  //         console.log('sss')
+  //        return [...state,...user]
+  //       }else{
+
+  //         console.log('else')
+  //         return [...state]
+  //       }
+  //  })
       break;
+    case 'REMOVE_LOGIN':
+        return state.filter(({ username }) => username !== action.username);
 
     default:
       return state;
@@ -68,15 +92,19 @@ export const createPopularMovie = movie => {
     },
   };
 };
-export const createLogin = values => {
+export const createLogin = username => {
+  console.log(username)
   return {
     type: "ADD-LOGIN-VALUES",
-    loginValues: {
-      name: values.name,
-      password: values.password,
-    },
+    username
   };
 };
+
+export const removeLogin = ({ name,password } = {}) => ({
+  type: 'REMOVE_LOGIN',
+  name:name,
+  password:password
+});
 
 // export const editOrder = (
 //   id = "",
