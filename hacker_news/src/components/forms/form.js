@@ -1,22 +1,32 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-const Form = ({ onSubmit }) => {
+import {Link} from 'react-router-dom'
+const Form = ({ onSubmit ,errorMessage}) => {
   const [inputField, setInputField] = useState({
     name: "",
     password: "",
   });
+  const [error ,setError] =useState(false)
   const handleInputs = e => {
     setInputField({ ...inputField, [e.target.name]: e.target.value });
   };
   const onSubmitValues = e => {
     e.preventDefault();
+    setError(true)
+   
     const order = {
       name: inputField.name,
       password: inputField.password,
     };
     onSubmit(order);
+    // setInputField({
+    //   name:'',
+    //   password:''
+    //   })
+  
   };
   return (
+    <div>
     <div style={{ content: "", display: "table", clear: "both" }}>
       <form onSubmit={onSubmitValues}>
         <div
@@ -33,7 +43,7 @@ const Form = ({ onSubmit }) => {
             type="name"
             value={inputField.name}
             onChange={handleInputs}
-            required
+            // required
           />
         </div>
         <div
@@ -50,7 +60,7 @@ const Form = ({ onSubmit }) => {
             type="password"
             value={inputField.password}
             onChange={handleInputs}
-            required
+            // required
           />
         </div>
 
@@ -62,10 +72,16 @@ const Form = ({ onSubmit }) => {
           }}
         >
           <Button color="primary" variant="outlined" type="submit">
-            Submit
+          Submit
           </Button>
         </div>
       </form>
+    </div>
+        <div> {errorMessage.length===0  ? 'Username and Password is incorrected':''}</div> 
+          {
+          error ? 
+          inputField.name==="" ||  inputField.password==="" ? 'Username  or Password is empty':''
+           : ''}
     </div>
   );
 };
