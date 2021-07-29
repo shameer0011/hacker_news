@@ -95,6 +95,8 @@ const Api = (props) => {
                       index={index}
                       addMovieListButton={addMovieListButton}
                       buttonLabel="SAVE"
+                      showSaveButton = {false}
+                      showRemoveButton={false}
                     />
                   </Grid>
                 ))}

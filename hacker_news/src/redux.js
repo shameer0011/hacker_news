@@ -30,8 +30,8 @@ const PopularMovieReducers = (
       break;
   }
 };
-const loginReducerDefaultValue =users;
 
+const loginReducerDefaultValue =users;
 const loginReducer = (state = loginReducerDefaultValue, action) => {
 console.log(state)
   switch (action.type) {
@@ -58,6 +58,22 @@ console.log(state)
   }
 };
 
+const saveMovieToAccountReducersDefaultValue = []
+const saveMovieToAccountReducer = (
+  state = saveMovieToAccountReducersDefaultValue,
+  action
+) => {
+  console.log(action,"action movie save reducer")
+  switch (action.type) {
+    case "SAVE-MOVIE-TO-ACCOUNT":
+      return [...state, {...action.movies }];
+      break;
+    default:
+      return state;
+      break;
+  }
+};
+
 // REDUCER STORE
 //...............
 
@@ -65,6 +81,7 @@ export const store = createStore(
   combineReducers({
     movie: PopularMovieReducers,
     login: loginReducer,
+    saveMovies:saveMovieToAccountReducer
     // filt: filtersReducers,
   })
 );
@@ -100,11 +117,27 @@ export const createLogin = username => {
   };
 };
 
+
 export const removeLogin = ({ name,password } = {}) => ({
   type: 'REMOVE_LOGIN',
   name:name,
   password:password
 });
+
+export const saveMovieToAccount = (movie)=>{
+  console.log(movie,"action save movies")
+  return {
+    type :"SAVE-MOVIE-TO-ACCOUNT",
+    movies: {
+      id: movie.id,
+      original_title: movie.original_title,
+      overview: movie.overview,
+      popularity: movie.popularity,
+      poster_path: movie.poster_path,
+    },
+
+  }
+}
 
 // export const editOrder = (
 //   id = "",
