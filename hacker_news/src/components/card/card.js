@@ -18,6 +18,8 @@ const Cards = props => {
     imageClickModal,
     editCardToProduct,
     removeCard,
+    showSaveButton,
+    showRemoveButton
   } = props;
 
   const classes = useStyles();
@@ -50,9 +52,11 @@ const Cards = props => {
         onClick={cardClick}
         style={{ height: "90%", width: "300px" }}
       >
+       {showRemoveButton &&
         <Button onClick={() => removeCard(item)} style={{ float: "right" }}>
           <HighlightOffTwoToneIcon />
         </Button>
+       }
         <CardActionArea>
           <SimpleModal
             media={CardModal(item)}
@@ -81,6 +85,7 @@ const Cards = props => {
             </Typography>
           </CardContent>
           <div className={classes.buttonStyle}>
+           {showSaveButton && 
             <Button
               variant="contained"
               color="primary"
@@ -88,7 +93,9 @@ const Cards = props => {
             >
               {buttonLabel}
             </Button>
+            }
           </div>
+
         </CardActionArea>
       </Card>
     </div>
