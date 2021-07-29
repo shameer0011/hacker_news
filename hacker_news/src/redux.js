@@ -63,7 +63,7 @@ const saveMovieToAccountReducer = (
   state = saveMovieToAccountReducersDefaultValue,
   action
 ) => {
-  console.log(action,"action movie save reducer")
+ 
   switch (action.type) {
     case "SAVE-MOVIE-TO-ACCOUNT":
       return [...state, {...action.movies }];
@@ -110,7 +110,7 @@ export const createPopularMovie = movie => {
   };
 };
 export const createLogin = username => {
-  console.log(username)
+ 
   return {
     type: "ADD-LOGIN-VALUES",
     username
