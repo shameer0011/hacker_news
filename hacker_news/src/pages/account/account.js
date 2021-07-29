@@ -28,8 +28,7 @@ const Account = (props) => {
     saveItems.push({ ...movies});
     setAddMovieToAccount([...addMovieToAccount, {...movies }]);
     localStorage.setItem("cartItems", JSON.stringify(saveItems));
-    saveItems.map((i) =>props.dispatch(saveMovieToAccount(i)));
-
+    props.dispatch(saveMovieToAccount(movies));
   };
 
 
