@@ -77,7 +77,7 @@ const Form = ({ onSubmit ,errorMessage}) => {
         </div>
       </form>
     </div>
-        <div> {errorMessage.length===0  ? 'Username and Password is incorrected':''}</div> 
+        <div> {errorMessage && errorMessage.length===0  ? 'Username and Password is incorrected':''}</div> 
           {
           error ? 
           inputField.name==="" ||  inputField.password==="" ? 'Username  or Password is empty':''

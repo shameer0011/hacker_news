@@ -68,6 +68,12 @@ const saveMovieToAccountReducer = (
     case "SAVE-MOVIE-TO-ACCOUNT":
       return [...state, {...action.movies }];
       break;
+
+    case "REMOVE-MOVIE-TO-ACCOUNT":
+      if(action.id){
+        return [...state.filter((movie)=>movie.id!==action.id)]
+      }
+
     default:
       return state;
       break;
@@ -125,7 +131,6 @@ export const removeLogin = ({ name,password } = {}) => ({
 });
 
 export const saveMovieToAccount = (movie)=>{
-  console.log(movie,"action save movies")
   return {
     type :"SAVE-MOVIE-TO-ACCOUNT",
     movies: {
@@ -136,6 +141,14 @@ export const saveMovieToAccount = (movie)=>{
       poster_path: movie.poster_path,
     },
 
+  }
+}
+
+export const  removeMoviesToAccount =(id)=>{
+  return {
+    type:"REMOVE-MOVIE-TO-ACCOUNT",
+    id: id,
+   
   }
 }
 
