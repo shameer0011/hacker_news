@@ -1,16 +1,21 @@
+
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Cards from "../../components/card/card";
 import { SEARCH_URL } from "../../constants";
 import { Grid ,Button} from "@material-ui/core";
+import {Link} from 'react-router-dom'
 import { getMovies } from '../services/getmovies';
 import { createPopularMovie, saveMovieToAccount } from '../../redux';
-
+import Accountdetails from "../../components/account/accountdetails";
+import Test from '../test'
 const Account = (props) => {
-      console.log(props.saveMovies,"save redux")
+   
+      // console.log(props.saveMovies,"save redux")
     const { username } = props;
     const [searchTerm, setSearchTerm] = useState("");
-
+    const [show,setshow]=useState(false)
+    
   const [addMovieToAccount, setAddMovieToAccount] = useState(
     JSON.parse(localStorage.getItem("cartItems"))
     ? JSON.parse(localStorage.getItem("cartItems"))
@@ -18,17 +23,17 @@ const Account = (props) => {
   );
 // const [addMovieToAccount, setAddMovieToAccount] = useState([])
   console.log(addMovieToAccount,"save movies")
+  const saveItems = addMovieToAccount.slice();
 
   const onClick = (e) => {
   };
 
   const addMovieListButton = (movies) => {
-    console.log(movies); 
-    const saveItems = addMovieToAccount.slice();
     saveItems.push({ ...movies});
     setAddMovieToAccount([...addMovieToAccount, {...movies }]);
     localStorage.setItem("cartItems", JSON.stringify(saveItems));
-    props.dispatch(saveMovieToAccount(movies));
+    // props.dispatch(saveMovieToAccount(addMovieToAccount));
+    addMovieToAccount.map((i) => props.dispatch(saveMovieToAccount(i)));
   };
 
 
@@ -42,31 +47,20 @@ const Account = (props) => {
     setSearchTerm(e.target.value);
   };
 
-    // Two way to set get item..
-  // First way
-
-  // second way
-  // const [addToCart, setAddToCart] = useState([]);
-
-//   useEffect(() => {
-//     const localRepoItems = localStorage.getItem("cartItems");
-//     if (localRepoItems) {
-//         setAddMovieToAccount(JSON.parse(localRepoItems));
-//     }
-//   }, []);
-
-
-
-
  
+const DetailPage =(e)=>{
+  setshow(true)
+}
 
   return (
     <div>
-         <div>
-        {username.map((name) => (
-          <div style={{ color: "blue", float: "right" }}>{name.username}</div>
+        <div onClick={ DetailPage}>
+        {username && username.map((name) => (
+         <Link to ={name.username}> <div style={{ color: "blue", float: "right" }}>{name.username}</div></Link>
         ))}
       </div>
+      {!show ?
+      <>
       <div
         style={{
           display: "flex",
@@ -102,6 +96,14 @@ const Account = (props) => {
             </Grid>
           ))}
       </Grid>
+      </>
+       :
+       <Accountdetails 
+        movies={addMovieToAccount}
+        name="shameer"
+       />
+
+          }
     </div>
   );
 };

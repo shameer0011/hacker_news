@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
@@ -25,7 +26,10 @@ const Api = (props) => {
   }, []);
 
   const getMovies = async (url, movies) => {
+    console.log(url,"kkjj")
     const response = await axios.get(url);
+    console.log(response,"jfgegj")
+
     let popularMovie = response.data.results;
     setMovies(popularMovie);
     popularMovie.map((i) => props.dispatch(createPopularMovie(i)));
