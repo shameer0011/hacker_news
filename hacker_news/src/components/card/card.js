@@ -50,7 +50,7 @@ const Cards = props => {
       <Card
         className={classes.root}
         onClick={cardClick}
-        style={{ height: "90%", width: "300px" }}
+        // style={{ height: "90%", width: "300px" }}
       >
        {showRemoveButton &&
         <Button onClick={() => removeCard(item)} style={{ float: "right" }}>

@@ -9,7 +9,7 @@ const login = ({ formValuesToMain,errorMessage }) => {
   return (
     <div>
       <Form 
-      onSubmit={onSubmit}
+      onSubmits={onSubmit}
       errorMessage={errorMessage}
        />
     </div>
