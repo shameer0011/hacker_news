@@ -1,10 +1,10 @@
 import React from "react";
-import API from "./api/api";
+import Home from "./homepage/home";
 
 const Dashbord = () => {
   return (
     <div>
-      <API />
+      <Home />
       {/* <GetMovies /> */}
     </div>
   );

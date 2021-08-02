@@ -31,7 +31,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SimpleModal = ({ media, modalBody, modalAddToCart }) => {
-
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -64,7 +63,9 @@ const SimpleModal = ({ media, modalBody, modalAddToCart }) => {
           >
             <div>
               {" "}
-              <img src={modalBody?.image} alt={modalBody?.title} />
+              <img src=
+              {`https://image.tmdb.org/t/p/w185/${modalBody?.poster_path}`}
+              alt={modalBody?.original_title} />
             </div>
           </div>
 
@@ -77,24 +78,14 @@ const SimpleModal = ({ media, modalBody, modalAddToCart }) => {
               marginLeft: "0.2rem",
             }}
           >
-            <div id="simple-modal-title">Name : {modalBody?.title}</div>
+            <div id="simple-modal-title">Title : {modalBody?.original_title}</div>
             <div id="simple-modal-title">
-              Description : {modalBody?.description}
+              Description : {modalBody?.overview}
             </div>
 
-            <div id="simple-modal-title"> Price : $ {modalBody?.price}</div>
+            <div id="simple-modal-title"> Id : {modalBody?.id}</div>
             <div>
-              <Button
-                onClick={() => {
-                  modalAddToCart(modalBody);
-                  handleClose();
-                }}
-                variant="contained"
-                color="primary"
-                disableElevation
-              >
-                ADD TO CART
-              </Button>
+             
             </div>
           </div>
         </div>
